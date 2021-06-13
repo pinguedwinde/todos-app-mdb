@@ -1,3 +1,4 @@
+import { Action } from '@ngrx/store';
 import { Todo } from '@todo-list/shared/models/todo.model';
 export enum TodoActionsType {
   CREATE_TODO = '[TODO] - create todo',
@@ -5,15 +6,17 @@ export enum TodoActionsType {
   TOGGLE_TODO = '[TODO] - toggle todo',
 }
 
-export class CreateTodoAction {
+export class CreateTodoAction implements Action {
   readonly type = TodoActionsType.CREATE_TODO;
   constructor(public payload: Todo) {}
 }
-export class DeleteTodoAction {
+export class DeleteTodoAction implements Action {
   readonly type = TodoActionsType.DELETE_TODO;
-  constructor(public payload: Todo) {}
+  constructor(public payload: number) {}
 }
-export class ToggleTodoAction {
+export class ToggleTodoAction implements Action {
   readonly type = TodoActionsType.TOGGLE_TODO;
-  constructor(public payload: Todo) {}
+  constructor(public payload: number) {}
 }
+
+export type TodoAction = CreateTodoAction | DeleteTodoAction | ToggleTodoAction;

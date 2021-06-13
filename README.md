@@ -26,3 +26,7 @@ $ npm install @ngrx/store
 ```
 
 Then import the library (**`StoreModule`**) into a module and start using the **store**.
+
+### Actions Pipeline
+
+**Action (dispatch) => Reducers => New State (state) => Store**
