@@ -3,16 +3,16 @@ import { TodoAction, TodoActionsType } from './todos.actions';
 
 export interface TodoState {
   datas: Todo[];
+  loading: boolean;
+  loaded: boolean;
+  error: null;
 }
 
 export const INITIAL_STATE: TodoState = {
-  datas: [
-    {
-      message: 'Eat some great Pizza',
-      done: true,
-      order: 1,
-    },
-  ],
+  datas: [],
+  loading: false,
+  loaded: false,
+  error: null,
 };
 
 export function todosReducer(
@@ -21,6 +21,26 @@ export function todosReducer(
 ): TodoState {
   console.log(state);
   switch (action.type) {
+    case TodoActionsType.FETCH_TODO:
+      return {
+        ...state,
+        loading: true,
+      };
+    case TodoActionsType.FETCH_SUCCESS_TODO:
+      return {
+        ...state,
+        datas: action.payload,
+        loading: false,
+        loaded: true,
+        error: null,
+      };
+    case TodoActionsType.FETCH_ERROR_TODO:
+      return {
+        ...state,
+        loading: false,
+        loaded: false,
+        error: action.payload,
+      };
     case TodoActionsType.CREATE_TODO:
       return {
         ...state,

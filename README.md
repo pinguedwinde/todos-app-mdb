@@ -30,3 +30,26 @@ Then import the library (**`StoreModule`**) into a module and start using the **
 ### Actions Pipeline
 
 **Action (dispatch) => Reducers => New State (state) => Store**
+
+## Stage 2
+
+- We want to use async methods in our ngrx achitecture. But presently, the **reducers** are **pure functions**. They don't allow async call http that are random and provide possibily different response.
+- So we use **Effects** to deal with that. We need to add actions. These actions are about of fetching data (simulation of fetching data from http server).
+- Install then a package for this aim :
+
+```sh
+$ npm i @ngrx/effects
+```
+
+Note that this is out of the store component but is a tool of ngrx.
+
+### NgRX Devtools
+
+There's a devtools package available for ngrx. Redux has also a plugin for the browser that may be very helpful for debbuging the Store and the NgRx state in general : it's the **store-devtools**
+Install the package
+
+```sh
+$ npm i @ngrx/store-devtools
+```
+
+Then add or install the browser addon : **Redux DevTools**.
