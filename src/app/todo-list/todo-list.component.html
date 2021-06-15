@@ -12,10 +12,35 @@
       </mdb-form-control>
       <button class="btn btn-primary" (click)="addTodo()">Add</button>
     </div>
+    <div class="card mb-2">
+      <div *ngIf="selectedTodo$ | async; let selectedTodo">
+        <div
+          class="
+            card-header
+            text-center
+            fs-5
+            text-uppercase
+            todo-header
+            selected-todo-header
+          "
+        >
+          Your selected Todo
+        </div>
+        <div class="card-body">
+          <p class="card-text mb-2 text-break fs-6">
+            {{ selectedTodo.message }}
+          </p>
+        </div>
+      </div>
+    </div>
     <div class="d-flex flex-column-reverse">
-      <div class="card mb-2" *ngFor="let todo of todos$ | async; let i = index">
+      <div
+        [routerLink]="['/todos', todo.id]"
+        class="card mb-2"
+        *ngFor="let todo of todos$ | async; let i = index"
+      >
         <div class="card-header text-center fs-5 text-uppercase todo-header">
-          Todo {{ todo.order }}
+          Todo {{ todo.id }}
         </div>
         <div class="card-body">
           <p class="card-text mb-2 text-break fs-6">

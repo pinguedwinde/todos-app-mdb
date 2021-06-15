@@ -75,3 +75,36 @@ StoreRouterConnectingModule.forRoot({
 ```
 
 - We add the **routerReducerState** in our State and in our reducers. But this a the default routerReducerState and will bring all the information the Router that are not all interesting. So we are going to customize this routerReducerState with just our needed properties.
+
+## Stage 4 : Selectors
+
+- We need to get access to the tree of the state and select via some **key state** , the feature we want to operate. For example, select the **todos state via the key 'todos'** and navigate throught the datas.
+- This can be seen in many components and we should avoid to write methods everywhere to do it. So ngrx allows to create **selectors** that the methods allowing us to to select the **state parts** effectively.
+  - **`createFeatureSelector`** : to create a selector of a part of the state ('todos' or 'router').
+  - **createSelector`** : to create the others selectors depending on the feature selectors.
+
+```ts
+export interface State {
+  todos: TodoState;
+  router: RouterReducerState<RouterStateUrl>;
+}
+```
+
+- We can replace this :
+
+```ts
+public todos$: Observable<Todo[]> = this.store.pipe(
+  select('todos'),
+  map((todoState: TodoState) => todoState.datas)
+);
+```
+
+By this one using the selectors :
+
+```ts
+ public todos$: Observable<Todo[]> = this.store.pipe(
+  select(todosListSelector)
+);
+```
+
+- Selectors are pure functions that retrieve parts of the state of our application and return state data that we can pass to our components.

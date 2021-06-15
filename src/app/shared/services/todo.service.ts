@@ -11,14 +11,14 @@ export class TodoService {
     return timer(2000).pipe(
       map(() => [
         {
+          id: '1',
           message: 'Eat some great Pizza',
           done: true,
-          order: 1,
         },
         {
+          id: '2',
           message: 'Have a rest on Weekend',
           done: true,
-          order: 2,
         },
       ])
     );

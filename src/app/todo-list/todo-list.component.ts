@@ -1,17 +1,20 @@
 import { Component, OnInit } from '@angular/core';
-import { Observable, of } from 'rxjs';
-import { map } from 'rxjs/operators';
+import { Observable } from 'rxjs';
 import { select, Store } from '@ngrx/store';
 
 import { Todo } from '@todo-list/shared/models/todo.model';
 import { TodoService } from '@todo-list/shared/services/todo.service';
 import { State } from '@todo-list/shared/store/index';
-import { TodoState } from '@todo-list/shared/store/todos.reducers';
+import {
+  selectedTodoSelector,
+  todosListSelector,
+} from '@todo-list/shared/store/store.selectors';
+
 import {
   CreateTodoAction,
   DeleteTodoAction,
   ToggleTodoAction,
-} from './../shared/store/todos.actions';
+} from '@todo-list/shared/store/todos.actions';
 
 @Component({
   selector: 'app-todo-list',
@@ -20,8 +23,10 @@ import {
 })
 export class TodoListComponent implements OnInit {
   public todos$: Observable<Todo[]> = this.store.pipe(
-    select('todos'),
-    map((todoState: TodoState) => todoState.datas)
+    select(todosListSelector)
+  );
+  public selectedTodo$: Observable<Todo> = this.store.pipe(
+    select(selectedTodoSelector)
   );
   public message: string = '';
 
@@ -34,9 +39,9 @@ export class TodoListComponent implements OnInit {
       this.todos$.subscribe((todos: Todo[]) => (index = todos.length));
       this.store.dispatch(
         new CreateTodoAction({
+          id: (index + 1).toString(),
           message: this.message,
           done: false,
-          order: index + 1,
         })
       );
     }
