@@ -108,3 +108,24 @@ By this one using the selectors :
 ```
 
 - Selectors are pure functions that retrieve parts of the state of our application and return state data that we can pass to our components.
+
+## Stage 5 : Entities
+
+- We need to optimize our app by choosing a good architecture. How to store the data in the Store? Not use arrays that can be imply bad performance in the application. Everytime, we'll need to iterate over the array and apply some operation functions like reducing, mapping, filtering. And this operations have a cost.
+- The more we will have data stored in the array, the lower will be the opertions to accomplish some tasks.
+
+```ts
+datas: Todo[]
+```
+
+- We use entities insatead of arrays to store the data.
+- An Entity is object : where we stored a key-value pair with an id as the key and the value as the object itself.
+
+```ts
+datas: {
+    [todoId: string] : Todo
+}
+```
+
+- We'll take avantage to restructure our Store in the app by orhanizing the code : Big refactoring everywhere.
+- The use of Entities that a Map of pairs of key-value is very efficient to represent data in the store. But we can have some arrays in our services and components.

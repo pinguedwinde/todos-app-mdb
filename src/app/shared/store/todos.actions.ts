@@ -26,11 +26,11 @@ export class CreateTodoAction implements Action {
 }
 export class DeleteTodoAction implements Action {
   readonly type = TodoActionsType.DELETE_TODO;
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 export class ToggleTodoAction implements Action {
   readonly type = TodoActionsType.TOGGLE_TODO;
-  constructor(public payload: number) {}
+  constructor(public payload: string) {}
 }
 
 export type TodoAction =

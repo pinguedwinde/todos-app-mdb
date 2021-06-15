@@ -54,11 +54,13 @@
               'btn-outline-primary': todo.done === false,
               'btn-success': todo.done === true
             }"
-            (click)="toggleTodo(i)"
+            (click)="toggleTodo(todo.id)"
           >
             <i class="fas fa-check"></i>
           </button>
-          <button class="btn btn-danger" (click)="deleteTodo(i)">Delete</button>
+          <button class="btn btn-danger" (click)="deleteTodo(todo.id)">
+            Delete
+          </button>
         </div>
       </div>
     </div>

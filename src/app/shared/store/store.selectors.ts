@@ -19,13 +19,26 @@ export const todosListSelector = createSelector(
   (todoState: TodoState) => todoState.datas
 );
 
+export const todosListArraySelector = createSelector(
+  todosSelector,
+  (todoState: TodoState) => {
+    if (todoState.datas) {
+      return Object.keys(todoState.datas).map(
+        (todoId: string) => todoState.datas[todoId]
+      );
+    } else {
+      return [];
+    }
+  }
+);
+
 export const selectedTodoSelector = createSelector(
   todosListSelector,
   myRouterStateSelector,
-  (todos: Todo[], routerStateUrl: RouterStateUrl) => {
+  (todos: { [todoId: string]: Todo }, routerStateUrl: RouterStateUrl) => {
     const todoId = routerStateUrl.params.id;
     if (todoId && todos) {
-      return todos.filter((todo: Todo) => todo.id === todoId)[0];
+      return todos[todoId];
     } else {
       return null;
     }
