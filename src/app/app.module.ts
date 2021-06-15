@@ -4,9 +4,14 @@ import { NgModule } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 
-// nhrx
+// ngrx
 import { StoreModule } from '@ngrx/store';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
+import {
+  RouterStateSerializer,
+  StoreRouterConnectingModule,
+} from '@ngrx/router-store';
 
 import { MdbModule } from 'mdb-angular-ui-kit';
 
@@ -19,7 +24,7 @@ import { TodosEffects } from './shared/store/todos.effects';
 import { APP_ROUTES } from './app.routing';
 import { LoginComponent } from './login/login.component';
 import { REDUCERS } from './shared/store';
-import { StoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { MyRouterStateSerializer } from './shared/store/router.reducer';
 
 @NgModule({
   declarations: [
@@ -36,11 +41,17 @@ import { StoreDevtools, StoreDevtoolsModule } from '@ngrx/store-devtools';
     RouterModule.forRoot(APP_ROUTES),
     EffectsModule.forRoot([TodosEffects]),
     StoreModule.forRoot(REDUCERS),
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router',
+    }),
     StoreDevtoolsModule.instrument({
       name: 'todo',
     }),
   ],
-  providers: [TodoService],
+  providers: [
+    TodoService,
+    { provide: RouterStateSerializer, useClass: MyRouterStateSerializer },
+  ],
   bootstrap: [AppComponent],
 })
 export class AppModule {}
