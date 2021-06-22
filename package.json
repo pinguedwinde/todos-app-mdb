@@ -1,9 +1,9 @@
 {
-  "name": "mdb-angular-ui-kit-free",
+  "name": "my-todos-app",
   "version": "1.0.0-beta5",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve",
+    "start": "ng serve --host 0.0.0.0 --port 8080 --disableHostCheck true",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
